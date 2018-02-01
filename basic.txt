@@ -1,0 +1,351 @@
+Hoisting - https://developer.mozilla.org/en-US/docs/Glossary/Hoisting
+defination -A variable can be used before it has been declared.
+		    JavaScript only hoists declarations, not initializations.
+
+Closures- Closures are useful because they let you associate some data (the lexical environment) with a function that operates on that data.
+
+Arrow Functions - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+                - https://hacks.mozilla.org/2015/06/es6-in-depth-arrow-functions/
+                An arrow function does not create its own this context, so this has its original meaning from the enclosing context		
+
+
+arguments.callee
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments/callee
+    
+Rest Parameters : 
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+    
+.call : 
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call   
+
+.bind :
+https://www.hacksparrow.com/javascript-bind-vs-apply-and-call.html
+
+ PROTOTYPE: 
+ https://javascript.info/prototype-inheritance
+
+
+Angular - 
+
+1. injector - http://stackoverflow.com/questions/16499358/explain-please-angularjs-injector-with-a-clear-example
+Explanation - There is one injector per Angular application. Normally you don't need to interact with it directly. The injector is key to making dependency injection work in Angular.
+Module methods such as factory, service, directive, etc. register these items with the injector. When you inject something (e.g., a service into a controller), the injector will lookup and then instantiate the service (if it wasn't instantiated already -- if it was, it will return the already-instantiated object).
+
+2. Provider - https://thinkster.io/egghead/providers
+3. Run Block(app.run) -  get executed after the injector is created and are used to kickstart the application. Only instances and constants can be injected into run blocks. This is to prevent further system configuration during application run time.
+    Run blocks are the closest thing in Angular to the main method. A run block is the code which needs to run to kickstart the application. It is executed after all of the service have been configured and the injector has been created. Run blocks typically contain code which is hard to unit-test, and for this reason should be declared in isolated modules, so that they can be ignored in the unit-tests. 
+run(initializationFn);-->Use this method to register work which should be performed when the injector is done loading all modules.
+            -> Only inject instances not providers
+            
+            
+4.Config Block - Use this method to register work which needs to be performed on module loading.
+               - Only Inject Providers not instances 
+               
+http://firstcrazydeveloper.com/Blogs/BlogView.html/46/importance-of-config-and-run-blocks-in-angularjs
+https://www.allinterview.com/showanswers/189564/what-is-difference-between-config-and-run-method-in-angularjs.html
+
+
+Directives : https://docs.angularjs.org/guide/directive
+POSTLINK/PRELINK - https://www.undefinednull.com/2014/07/07/practical-guide-to-prelink-postlink-and-controller-methods-of-angular-directives/
+http://odetocode.com/blogs/scott/archive/2014/05/28/compile-pre-and-post-linking-in-angularjs.aspx
+https://www.jvandemo.com/the-nitty-gritty-of-compile-and-link-functions-inside-angularjs-directives/
+https://blog.brunoscopelliti.com/use-cases-of-angularjs-directives/
+
+REQUIRE PROPERTY IN DDO-
+ require: 'siblingDirectiveName', // or // ['^parentDirectiveName', '?optionalDirectiveName', '?^optionalParent'],
+===================================================================================================================================  
+
+
+
+
+--> Angular LifeCycle
+--> Angular Modules 
+
+Routing
+-> Config - 
+            Routing- 
+            $stateProvider,$urlrouterProvider
+            $stateProvider.state('statename',{'name':'',url:'',template:'' })
+            
+            $httpProvider.interceptors.push(['$q', '$location', "tokenService", "$timeout", function($q, $location, tokenService, $timeout) {
+                    return {
+                        'request': function(config) {
+                            config.headers = config.headers || {};
+                            var userInfo = tokenService.getToken();
+                            if (userInfo) {
+                                if (userInfo.accessToken) {
+                                    config.headers.Authorization = 'Bearer ' + userInfo.accessToken;
+                                }
+                            }
+                            return config;
+                        },
+                        'responseError': function(response) {
+                            if (response.status === 401 || response.status === 403) {
+                                tokenService.removeToken();
+                                $location.path('/login');
+                            }
+                            return $q.reject(response);
+                        }
+                    };
+                }]);
+                
+
+Performance Optimization:-
+https://developers.google.com/speed/articles/optimizing-javascript
+https://blogs.msdn.microsoft.com/ie/2007/01/04/iejscript-performance-recommendations-part-3-javascript-code-inefficiencies/
+https://msdn.microsoft.com/library?url=/library/en-us/ietechcol/dnwebgen/ie_leak_patterns.asp
+
+Memory Leaks- 
+http://www.javascriptkit.com/javatutors/closuresleak/index.shtml
+                
+Questions- 
+1.  Angular Life Cycle
+2.  Directive Life Cycle
+3.  How to use Filter in directives/controllers
+4.  Use of $compile in directive
+5.  $watchlist in angular($$watchers)
+6.  Use of controller as
+7.  Communication between controller
+8.  What are factory/Services their differences .
+9.  Why Hoisiting 
+10. Why Closure
+11  How to prevent memory leaks 
+12. how to increase performance
+13. js data types
+14. Prmoises - chaining , Parallel processing
+15. $q , defer
+16. setTimeOut Vs $timeout
+17. how to Add Authorization headers in request
+18. Use case of .run and .config
+19. $templatecache
+20. Output - 1+ +'2'+3
+21.  null vs undefined
+22. datatype of NAN
+23. CSS3 animation/new features
+24. HTML 5 features.
+25. diff between onLoad and onDocumentReady
+26. call,apply and bind
+27. element selector in jquery
+28. + vs ~ vs < vs ' ' in css(div<span)
+29. What is Providers and their use and usecase.
+30. emit vs broadcast
+
+
+<parent>
+    <child>
+    </child>
+</parent>
+
+parent - compile
+child - compile
+parent controller
+parent prelink
+child controller 
+child prelink
+child postlink
+parent postlink
+
+http://stackoverflow.com/questions/27216294/what-gets-added-to-scope-watchers-by-default-in-angular-and-what-triggers-d
+
+Angular performance improve - http://engineering.curalate.com/2016/01/17/angular-perf.html
+
+
+=====================================================================================================
+=====================================================================================================
+https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure
+
+//Performance improve
+
+https://www.alexkras.com/11-tips-to-improve-angularjs-performance/
+http://www.codelord.net/2014/06/17/angular-performance-101-slides/
+//////////////Disable Debug Info ////////////////////////////////////
+myApp.config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.debugInfoEnabled(false);
+}])
+////////////////////////////////////////////////////////////////////
+SECURITY -
+WEB STORAGE SECURITY - https://www.whitehatsec.com/blog/web-storage-security/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+1.      What is difference between UI-router and NG-router ?
+        https://i.stack.imgur.com/PkUq0.png
+
+        i)ui-router allows for nested views and multiple named views. This is very useful with larger app where you may have pages that inherit from other sections.
+        ii)ui-router allows for you to have strong-type linking between states based on state names. Change the url in one place will update every link to that state when you build your links with ui-sref. Very useful for larger projects where URLs might change.
+        iii)There is also the concept of the decorator which could be used to allow your routes to be dynamically created based on the URL that is trying to be accessed. This could mean that you will not need to specify all of your routes before hand.
+        iv)states allow you to map and access different information about different states and you can easily pass information between states via $stateParams.
+        v)You can easily determine if you are in a state or parent of a state to adjust UI element (highlighting the navigation of the current state) within your templates via $state provided by ui-router which you can expose via setting it in $rootScope on run.        
+        
+        
+2.      What is the advantage and disadvantage of using UI-router and NG-router ?
+3.      What is the workflow of router in angular application ?
+4.      How to do you check the performance of each scope using in angular application ?
+        --not found
+5.      What is the tool you use top check the performance of angular app ?
+Solution- Batrang        
+
+6.      How do you stop the debug of angular application in production ?
+        Solution- https://docs.angularjs.org/guide/production
+       
+        myApp.config(['$compileProvider', function ($compileProvider) {
+              $compileProvider.debugInfoEnabled(false);
+        }]);
+
+7.      What is directives and what do you mean by isolate scope ?
+8.      How do you share the directives from one module to another module ?
+9.      What is inject in angular ?<----
+        $injector is used to retrieve object instances as defined by provider, instantiate types, invoke methods, and load modules.
+        
+10.   What is noop in angular ?
+Solution: A function that performs no operations. This function can be useful when writing code in the functional style.
+Example:
+    function myFunction(id, value, callback) {
+        var cb = callback || angular.noop; // if no `callback` provided, don't break :)
+        // some logic
+        return cb(someData);
+    }
+    myFunction(1, 'a');
+
+11.   What is advantages of two- way data binding ?
+Benefits and Considerations:
+The primary benefit of two-way data binding is that updates to (and retrievals from) the underlying data store happen more or less automatically. When the data store updates, the UI updates as well. This allows you to remove a lot of logic from the front-end display code, particularly when making effective use of AngularJS’s declarative approach to UI presentation. In essence, it allows for true data encapsulation on the front-end, reducing the need to do complex and destructive manipulation of the DOM.
+Additionally, two-way binding is only truly beneficial for relatively simple objects. Any data that requires heavy parsing work, or extensive manipulation and processing, will simply not work well with two-way binding. Additionally, some uses of Angular – such as using the same binding directive more than once – can break the data binding process.
+
+Conclusion:
+While the traditional approach to data binding has a lot of benefits when it comes to performing complex data manipulations and calculations, it can introduce some problems with respect to the design of the web application’s front-end architecture. With AngularJS’s use of two-way data binding, your application can greatly simplify its presentation layer, allowing the UI to be built off of a cleaner, less-destructive approach to DOM presentation. While it isn’t useful in every situation, the two-way data binding AngularJS provides can greatly ease web application development, and reduce the pain faced by your front-end developers.
+
+
+12.   How two way databinding impact the performance of app ?
+13.   How to avoid the two-way data binding ?
+14.   Can you explain the life cycle of scope in angular.js ?
+Solution:https://docs.angularjs.org/guide/scope
+15.   What is SASS and advantages over css ?
+16.   What is server side template and client side template ?
+17.   What is interpolation and how angular find this interpolation at compile level ?
+18.   What are the bootstrap and type of bootstrapping in angular.js ?
+Solution: Bootstrap is  AngularJS initialization process
+    i)Automatic Initialization- AngularJS initializes automatically upon DOMContentLoaded event or when the angular.js script is evaluated if at that time     document.readyState is set to 'complete'. At this point AngularJS looks for the ngApp directive which designates your application root. If the ngApp directive is found then AngularJS will:
+    I.load the module associated with the directive.
+    II.create the application injector
+    III.compile the DOM treating the ngApp directive as the root of the compilation. This allows you to tell it to treat only a portion of the DOM as an AngularJS application.    
+     
+    ii)Manual Initialization-
+     angular.element(function() {
+      angular.bootstrap(document, ['myApp']);
+    });
+
+19.   Why we need to compress the JS files and advantages over that ?
+Solution:Minification is a bandwidth optimization technique that reduces the size of code transmitted over the web.
+    Benefits of Minification
+    Users load content faster as less unnecessary data needs to be downloaded. Users experience identical service without the additional overhead.
+    Businesses see lower bandwidth costs as less data is transmitted over the network. The extra content that only developers care about is no longer being sent to users.
+    Businesses also see lower resource usage since less data needs to be processed for each request. The minified content – which only needs to be generated once – can be used for an unlimited number of requests.
+
+20.   What is grunt and bower ?
+Solution:
+Bower - Bower is a command line utility. Install it with npm.
+Bower is optimized for the front-end. If multiple packages depend on a package - jQuery for example - Bower will download jQuery just once. This is known as a flat dependency graph and it helps reduce page load.
+
+Grunt - Grunt is a Javascript Task Runner.
+In one word: automation. The less work you have to do when performing repetitive tasks like minification, compilation, unit testing, linting, etc, the easier your job becomes. After you've configured it through a Gruntfile, a task runner can do most of that mundane work for you—and your team—with basically zero effort.
+
+
+21.   what is ng annotate ?
+Solution:ng-annotate adds and removes AngularJS dependency injection annotations.
+ Example:   $ cat source.js
+    angular.module("MyMod").controller("MyCtrl", function($scope, $timeout) {
+        "ngInject";
+        ...
+    });
+    Then run ng-annotate as a build-step to produce this intermediary, annotated, result (later sent to the minifier of choice):
+   
+    $ ng-annotate -a source.js
+    angular.module("MyMod").controller("MyCtrl", ["$scope", "$timeout", function($scope, $timeout) {
+        "ngInject";
+        ...
+    }]);
+
+
+22.   how migration can be done from 1.x to 2 ? tell them about NG-Forward and NG-Upgrade
+    https://angular.io/docs/ts/latest/guide/upgrade.html
+    https://github.com/ngUpgraders/ng-forward
+23.   how do we call soap service in angular.js ?
+24.   how two-way databinding happens in angular.js ?
+25.   best practices in angular.js
+    https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md
+26.   how do you test the angular app (jasmine, mocha, protractor, karma ) ?
+27.   What is $q in angular ?
+Solution: A service that helps you run functions asynchronously, and use their return values (or exceptions) when they are done processing.This is a Promises/A+-compliant implementation of promises
+Example:
+   var deferred = $q.defer();
+        $http({
+            method: "POST",
+            url: "/staff/logout",
+            headers: {
+                "access_token": userInfo.accessToken
+            }
+        }).then(function(result) {
+            userInfo = null;
+            $window.localStorage["userInfo"] = null;
+            deferred.resolve(result);
+        }, function(error) {
+            deferred.reject(error);
+        });
+        return deferred.promise;
+
+
+28.   What is the new component introduced in latest version of 1.5.x ? (tell them component and component router)
+https://docs.angularjs.org/guide/component-router
+https://toddmotto.com/exploring-the-angular-1-5-component-method/
+
+29.   How to you write a custom filter and how to inject this custom filter in html or at controller level ?
+Defination: Filters format the value of an expression for display to the user. They can be used in view templates, controllers or services. 
+Example: 
+    app.filter('reverse', function() {
+        console.log("Filter 1");
+      return function(input, uppercase) {
+        console.log("Filter return  method" , input, uppercase);
+    
+        input = input || '';
+        var out = '';
+        for (var i = 0; i < input.length; i++) {
+          out = input.charAt(i) + out;
+        }
+        // conditional based on optional argument
+        if (uppercase) {
+          out = out.toUpperCase();
+        }
+        return out;
+      };
+    })
+Usage(html) -  Reverse + uppercase: {{greeting|reverse:false}}<br> ({{ngmodelValue|filter:arg1}})
+Usage (from controller)  Reverse, filtered in controller: {{filteredGreeting}}<br> 
+                            
+app.controller('mainController', function ($scope, name,reverseFilter,$filter) {
+    $scope.greeting = 'hello';
+    $scope.filteredGreeting = reverseFilter($scope.greeting, "T");
+    //OR
+    $scope.filteredGreeting = $filter('reverse')($scope.greeting,true)
+})
+
+    Oops 
+    Typescript
+    Form groups 
+    Form control
+ 
+Each topic goes into more deeper level, the candidate must have the knowledge of entire workflow and compilation process of angular.js and why angular team introduce this method (Eg. Controller, factory, services) to achieve this development flow.
+
+
+
+
+
+
+
+                                                    
+                                                
+                                                
+                                                    
+                                                
+                                                    
