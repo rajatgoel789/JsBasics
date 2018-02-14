@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+
+<h2>Local Links</h2>
+
+<input type="text" name="autocomplete" id="autocomplete" >
+<div id="AutoResults"> </div> 
+</body>
+	<script type="text/javascript">
+		var autoArray = ["a", "ab", "abc", "abcd", "Rajat", "Goel"];
+		var userArray = [];
+		(function() {
+			var textField = document.querySelector("#autocomplete");
+			console.log("Tex", textField);
+			textField.onkeyup = function($event) {
+				console.log("Event is", $event.target.value);
+				var userInputVal = $event.target.value
+				var newArr = autoArray.filter(function(val) {
+					return val.search(userInputVal) > -1 ? true : false
+				})
+				var op = "<ul>";
+				if (userInputVal) {
+					var counter = 0;
+					newArr.forEach(function(val) {
+						op += '<li data-val="' + val + '"  data-counter="' + counter + '" onclick="userSelection(this)">' + val + '</li>';
+						counter++;
+					})
+				}
+				op += '</ul>';
+				console.log("New Array ", op);
+				document.querySelector("#AutoResults").innerHTML = op;
+			}
+		})();
+
+		function userSelection(value, index) {
+			// alert("");
+			console.log("Value is ", value.dataset.val);
+			userArray.push(value.dataset.val);
+			autoArray.splice(value.dataset.counter, 1)
+		
+		}
+	</script>
+</html>
